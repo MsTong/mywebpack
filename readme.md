@@ -110,3 +110,26 @@ module:{
 3、处理less, less less-loader
 sass: node-sass sass-loader 
 stylus stylus-loader 
+
+#### 样式处理（2）
+##### 将css打包到具体的文件并引入index.html
+1、npm i mini-css-extract-plugin -D  
+//插件
+作用：将css打包到具体的文件并引入index.html
+2、npm i postcss-loader autoprefixer -D
+作用：第一个就是前面提到的把 CSS 解析成 JavaScript 可以操作的 AST，第二个就是调用插件来处理 AST 并得到结果。
+比如可以支持变量和混入（mixin），增加浏览器相关的声明前缀，或是把使用将来的 CSS 规范的样式规则转译（transpile）成当前的 CSS 规范支持的格式
+3、配置webpack.config.js 
+```
+new MiniCssExtractPlugin({
+    filename:'main.css'
+})
+MiniCssExtractPlugin.loader,
+postcss-loader;//放着css-loader之后
+```
+4、配置postcss.config.js
+```
+module.exports = {
+    plugins:[require('autoprefixer')]
+}
+```

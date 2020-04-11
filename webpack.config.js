@@ -1,6 +1,7 @@
 // webpack是node写出来的 node写法
 let path = require('path');
 let htmlWebpackPlugin = require('html-webpack-plugin');
+let MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
     devServer:{
         port:3000,
@@ -23,6 +24,9 @@ module.exports = {
             //     collapseWhitespace:true
             // },
             hash:true
+        }),
+        new MiniCssExtractPlugin({
+            filename:'main.css'
         })
     ],
     module:{
@@ -33,7 +37,9 @@ module.exports = {
                     loader:'style-loader'
                 }
                 ,
-                'css-loader'
+                MiniCssExtractPlugin.loader,
+                'css-loader',
+                // 'postcss-loader'
             ]
         },{
             test:/\.less$/,
@@ -41,7 +47,9 @@ module.exports = {
                 {
                     loader:'style-loader'
                 },
+                MiniCssExtractPlugin.loader,
                 'css-loader',
+                // 'postcss-loader',
                 'less-loader'
             ]
         }]
